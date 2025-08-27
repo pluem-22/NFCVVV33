@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2025 at 10:27 AM
+-- Generation Time: Aug 27, 2025 at 03:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -55,7 +55,8 @@ CREATE TABLE `nfc_cards` (
 --
 
 INSERT INTO `nfc_cards` (`id`, `user_id`, `card_uid`, `nickname`, `is_active`, `created_at`) VALUES
-(2, 3, 'BC643D2E', 'ซัน', 1, '2025-08-22 12:50:22');
+(2, 3, 'BC643D2E', 'ซัน', 1, '2025-08-22 12:50:22'),
+(3, 4, 'F2B38D6C', 'แมว', 1, '2025-08-24 09:00:36');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,13 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `transaction_id`, `product_id`, `quantity`, `price_per_unit`, `total_price`, `created_at`) VALUES
-(1, 'TXNSEEDBUY1', 1, 1, 20.00, 20.00, '2025-08-22 12:47:14');
+(1, 'TXNSEEDBUY1', 1, 1, 20.00, 20.00, '2025-08-22 12:47:14'),
+(2, 'TXNT1HQGL2E4229', 1, 5, 20.00, 100.00, '2025-08-24 09:02:45'),
+(3, 'TXNT1HQGZ4AB5DD', 1, 100, 20.00, 2000.00, '2025-08-24 09:02:59'),
+(4, 'TXNT1HQHBD4C4E8', 1, 5, 20.00, 100.00, '2025-08-24 09:03:11'),
+(5, 'TXNT1HS0KF02931', 1, 1, 20.00, 20.00, '2025-08-24 09:36:20'),
+(6, 'TXNT1HS0P3DF3A9', 1, 1, 20.00, 20.00, '2025-08-24 09:36:25'),
+(7, 'TXNT1K2RY6C7979', 2, 10, 15.00, 150.00, '2025-08-25 15:23:58');
 
 -- --------------------------------------------------------
 
@@ -99,8 +106,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `product_name`, `price`, `stock`, `created_at`) VALUES
-(1, 'น้ำ', 20.00, 200, '2025-08-22 12:47:14'),
-(2, 'ขนม', 15.00, 120, '2025-08-22 12:47:14'),
+(1, 'น้ำ', 20.00, 88, '2025-08-22 12:47:14'),
+(2, 'ขนม', 15.00, 110, '2025-08-22 12:47:14'),
 (3, 'ข้าวกล่อง', 60.00, 50, '2025-08-22 12:47:14');
 
 -- --------------------------------------------------------
@@ -129,7 +136,17 @@ CREATE TABLE `transactions` (
 INSERT INTO `transactions` (`id`, `transaction_id`, `amount`, `transaction_date`, `status`, `customer_name`, `type`, `is_paid`, `is_confirmed`, `user_id`) VALUES
 (1, 'TXNSEEDBUY1', 20.00, '2025-08-22 12:47:14', 'completed', 'ผู้ใช้ตัวอย่าง', 'buy', 1, 1, 2),
 (2, 'TXNSEEDTOP1', 50.00, '2025-08-22 12:47:14', 'completed', 'ผู้ใช้ตัวอย่าง', 'topup', 1, 1, 2),
-(3, 'TXNT1EBOA95325C', 179.00, '2025-08-22 19:50:34', 'completed', 'post', 'topup', 1, 1, 3);
+(3, 'TXNT1EBOA95325C', 179.00, '2025-08-22 19:50:34', 'completed', 'post', 'topup', 1, 1, 3),
+(4, 'TXNT1HQDN868C37', 500.00, '2025-08-24 16:00:59', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4),
+(5, 'TXNT1HQGL2E4229', 100.00, '2025-08-24 16:02:45', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(6, 'TXNT1HQGZ4AB5DD', 2000.00, '2025-08-24 16:02:59', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(7, 'TXNT1HQHBD4C4E8', 100.00, '2025-08-24 16:03:11', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(8, 'TXNT1HQKZ5416B0', 2000.00, '2025-08-24 16:05:23', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4),
+(9, 'TXNT1HS0C9F62B9', 179.00, '2025-08-24 16:36:12', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4),
+(10, 'TXNT1HS0KF02931', 20.00, '2025-08-24 16:36:20', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(11, 'TXNT1HS0P3DF3A9', 20.00, '2025-08-24 16:36:25', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(12, 'TXNT1K2ROA3E0BD', 1000.00, '2025-08-25 22:23:48', 'completed', 'post', 'topup', 1, 1, 3),
+(13, 'TXNT1K2RY6C7979', 150.00, '2025-08-25 22:23:58', 'completed', 'post', 'buy', 1, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -155,7 +172,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `name`, `phone`, `email`, `role`, `created_at`) VALUES
 (1, 'pluem', '$2y$10$HFv1tW/N6CGgwlzYx0i51urZr/3V5zB3S5PytO/Y2Tz4eH.YIZjKq', 'ผู้ดูแลระบบ', NULL, 'pluem@example.com', 'admin', '2025-08-22 12:47:14'),
 (2, 'demo', '$2y$10$0Jk0eN6Z2Tn3T4yq7r7cOe3e6t9M3u4Xo0b6mM0s3x5Q3m8oQnE3W', 'ผู้ใช้ตัวอย่าง', '0812345678', 'demo@example.com', 'user', '2025-08-22 12:47:14'),
-(3, 'obtai_7ma', '$2y$10$sfvoaosj4glcde7LPDNKnO3YUVHIdJ0dcnYWWh32YEjPiirbBBVka', 'post', '0789245614', 'user_1755866991_1241@nano.com', 'user', '2025-08-22 12:49:51');
+(3, 'obtai_7ma', '$2y$10$sfvoaosj4glcde7LPDNKnO3YUVHIdJ0dcnYWWh32YEjPiirbBBVka', 'post', '0789245614', 'user_1755866991_1241@nano.com', 'user', '2025-08-22 12:49:51'),
+(4, 'มีสา', '$2y$10$TTPGqTBV/rVMTjMlvYVD9.Dkm0F4tkTct6CC0ItVis20oEAUmKdm.', 'ธนสรรค์', '0813524711', 'user_1756025930_3135@nano.com', 'user', '2025-08-24 08:58:50');
 
 --
 -- Indexes for dumped tables
@@ -221,13 +239,13 @@ ALTER TABLE `admin_impersonation_logs`
 -- AUTO_INCREMENT for table `nfc_cards`
 --
 ALTER TABLE `nfc_cards`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -239,13 +257,13 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
