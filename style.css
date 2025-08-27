@@ -1,0 +1,425 @@
+/* css/style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --sidebar-width: 250px;
+    --topbar-height: 60px;
+    --bg-color: #f2f5f9; /* Light grey background for the main content area */
+    --card-bg-color: #ffffff;
+    --border-color: #e0e6ed;
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    /* Custom Colors for Dashboard Cards - inspired by the image */
+    --card-purple: #8e44ad; /* Darker Purple */
+    --card-green: #27ae60;  /* Darker Green */
+    --card-blue: #3498db;   /* Standard Blue */
+    --card-yellow: #f1c40f; /* Standard Yellow */
+
+    /* Text Colors */
+    --text-color-dark: #34495e;
+    --text-color-light: #7f8c8d;
+
+    /* Primary/Accent for buttons, links */
+    --primary-color-btn: #3498db;
+    --success-color-btn: #2ecc71;
+    --warning-color-btn: #f39c12;
+    --danger-color-btn: #e74c3c;
+
+    font-family: 'Sarabun', sans-serif;
+}
+
+html, body {
+    height: 100%; /* Important: Make html and body take full height */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color-dark);
+    line-height: 1.6;
+}
+
+/* --- Layout Wrapper (Sidebar + Content) --- */
+#wrapper {
+    display: flex; /* Use flexbox for main layout */
+    height: 100%; /* Make wrapper take full height */
+    overflow: hidden; /* Prevent wrapper from expanding beyond viewport */
+}
+
+#sidebar-wrapper {
+    width: var(--sidebar-width);
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    background-color: var(--card-bg-color);
+    border-right: 1px solid var(--border-color);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    transition: margin-left 0.25s ease-out;
+    position: relative; /* Changed to relative for simpler flow */
+    z-index: 1000; /* Ensure sidebar is above content on mobile */
+    display: flex;
+    flex-direction: column; /* For sidebar content arrangement */
+}
+
+#page-content-wrapper {
+    flex-grow: 1; /* Allow content to take remaining space */
+    display: flex;
+    flex-direction: column; /* For topbar and main content arrangement */
+    overflow-y: auto; /* Allow scrolling for main content */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    padding-left: 0; /* Default, will be handled by margin on wrapper */
+}
+
+/* Toggle for mobile/collapsed sidebar */
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: -var(--sidebar-width);
+}
+
+/* Desktop layout (sidebar always visible) */
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0; /* Sidebar always visible by default on desktop */
+    }
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -var(--sidebar-width); /* Allows hiding on desktop too */
+    }
+    #page-content-wrapper {
+        margin-left: 0; /* No margin on content wrapper itself, flex handles width */
+    }
+}
+
+/* --- Sidebar Styling --- */
+.sidebar-heading {
+    padding: 1.5rem 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color-btn);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0; /* Prevent heading from shrinking */
+}
+
+.custom-list-group {
+    flex-grow: 1; /* Allow menu list to take remaining height */
+    overflow-y: auto; /* Allow scrolling if menu is long */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.custom-list-group .custom-list-item {
+    background-color: transparent;
+    color: var(--text-color-dark);
+    padding: 1rem 1.5rem;
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.custom-list-group .custom-list-item:hover {
+    background-color: var(--bg-color);
+    color: var(--primary-color-btn);
+}
+
+.custom-list-group .custom-list-item.active {
+    background-color: var(--primary-color-btn);
+    color: #fff;
+    border-radius: 0.5rem;
+    margin: 0.5rem 1rem;
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+}
+
+.custom-list-group .custom-list-item.active i {
+    color: #fff;
+}
+
+
+/* --- Top Bar --- */
+.custom-topbar {
+    background-color: var(--card-bg-color);
+    height: var(--topbar-height);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    flex-shrink: 0; /* Prevent topbar from shrinking */
+    width: 100%; /* Ensure it takes full width of its parent */
+}
+
+.custom-toggle-btn {
+    background-color: var(--primary-color-btn);
+    border-color: var(--primary-color-btn);
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.1rem;
+}
+.custom-toggle-btn:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+.custom-topbar .navbar-brand {
+    font-weight: 600;
+    color: var(--text-color-dark);
+    font-size: 1.3rem;
+}
+
+.custom-badge-esp32 {
+    background-color: var(--success-color-btn) !important;
+    padding: 0.5em 0.8em;
+    font-size: 0.9em;
+}
+
+/* --- Main Content Area --- */
+.container-fluid.py-4 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    flex-grow: 1;
+}
+
+/* Dashboard Title */
+.dashboard-title {
+    color: var(--text-color-dark);
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+/* Dashboard Overview Cards */
+.custom-dashboard-card {
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-light);
+    border: none;
+    color: #fff;
+    transition: transform 0.2s ease-in-out;
+}
+.custom-dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.custom-card-purple { background-color: var(--card-purple); }
+.custom-card-green { background-color: var(--card-green); }
+.custom-card-blue { background-color: var(--card-blue); }
+.custom-card-yellow { background-color: var(--card-yellow); }
+
+.custom-dashboard-card .card-body {
+    padding: 1.5rem;
+}
+.custom-dashboard-card .card-body .fa-2x {
+    opacity: 0.7;
+}
+
+
+/* General Card Styling (for Chart, Table, NFC Section) */
+.custom-card {
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg-color);
+    overflow: hidden;
+}
+
+.custom-card .card-header {
+    background-color: var(--card-bg-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.25rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-color-dark);
+}
+.custom-card-header-warning {
+    background-color: var(--warning-color-btn);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Buttons (Adjusted colors) */
+.custom-btn-primary {
+    background-color: var(--primary-color-btn);
+    border-color: var(--primary-color-btn);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.custom-btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+}
+
+.custom-btn-success {
+    background-color: var(--success-color-btn);
+    border-color: var(--success-color-btn);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.custom-btn-success:hover {
+    background-color: #27ae60;
+    border-color: #27ae60;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(46, 204, 113, 0.2);
+}
+
+.custom-btn-warning {
+    background-color: var(--warning-color-btn);
+    border-color: var(--warning-color-btn);
+    color: #fff;
+    border-radius: 0.4rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.custom-btn-warning:hover {
+    background-color: #e67e22;
+    border-color: #e67e22;
+    transform: translateY(-1px);
+}
+
+.custom-btn-danger {
+    background-color: var(--danger-color-btn);
+    border-color: var(--danger-color-btn);
+    color: #fff;
+    border-radius: 0.4rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.custom-btn-danger:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+    transform: translateY(-1px);
+}
+
+/* Form Controls */
+.custom-form-control {
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.custom-form-control:focus {
+    border-color: var(--primary-color-btn);
+    box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+}
+
+/* Table */
+.custom-table {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg-color);
+}
+
+.custom-table thead {
+    background-color: var(--bg-color);
+    color: var(--text-color-dark);
+}
+
+.custom-table th {
+    font-weight: 600;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.custom-table td {
+    padding: 1rem 1.25rem;
+    vertical-align: middle;
+    border-top: 1px solid var(--border-color);
+}
+
+.custom-table tbody tr:hover {
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+.badge {
+    padding: 0.5em 0.8em;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.8em;
+}
+
+.custom-badge-success {
+    background-color: var(--success-color-btn);
+    color: #fff;
+}
+.custom-badge-danger { /* For 'buy' transactions */
+    background-color: var(--danger-color-btn);
+    color: #fff;
+}
+
+
+/* Alerts */
+.custom-alert {
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: #e8f7ee;
+    color: #217f3e;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--card-bg-color);
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.03);
+    color: var(--text-color-light) !important;
+    font-size: 0.9rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+/* HR Separator */
+hr {
+    border-top: 1px dashed var(--border-color);
+    margin: 3rem 0;
+}
+
+/* Chart Canvas Container */
+.chart-container {
+    position: relative;
+    height: 350px;
+    width: 100%;
+}
+canvas {
+    max-width: 100%;
+    height: 100% !important;
+    width: 100% !important;
+}
+
+/* Chart Legend (for Doughnut) */
+.chart-legend {
+    font-size: 0.9rem;
+    color: var(--text-color-dark);
+}
+
+/* Text colors for amount in transactions table */
+.text-success {
+    color: var(--success-color-btn) !important;
+    font-weight: 600;
+}
+
+.text-danger {
+    color: var(--danger-color-btn) !important;
+    font-weight: 600;
+}
+.btn-secondary{
+    display:inline-block;
+    background:#e5e7eb;
+    color:#111827;
+    border:1px solid #d1d5db;
+    padding:8px 14px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:500;
+  }
+  .btn-secondary:hover{ background:#dbe1e6; }
+  
