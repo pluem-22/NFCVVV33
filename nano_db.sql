@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 27, 2025 at 03:07 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Host: sql112.infinityfree.com
+-- Generation Time: Sep 02, 2025 at 11:30 PM
+-- Server version: 11.4.7-MariaDB
+-- PHP Version: 7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,22 +19,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `nano_db`
+-- Database: `if0_39302480_nano_db`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin_impersonation_logs`
---
-
-CREATE TABLE `admin_impersonation_logs` (
-  `id` int(11) NOT NULL,
-  `admin_id` int(11) NOT NULL,
-  `target_user_id` int(11) NOT NULL,
-  `started_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `stopped_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -79,13 +66,15 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `transaction_id`, `product_id`, `quantity`, `price_per_unit`, `total_price`, `created_at`) VALUES
-(1, 'TXNSEEDBUY1', 1, 1, 20.00, 20.00, '2025-08-22 12:47:14'),
-(2, 'TXNT1HQGL2E4229', 1, 5, 20.00, 100.00, '2025-08-24 09:02:45'),
-(3, 'TXNT1HQGZ4AB5DD', 1, 100, 20.00, 2000.00, '2025-08-24 09:02:59'),
-(4, 'TXNT1HQHBD4C4E8', 1, 5, 20.00, 100.00, '2025-08-24 09:03:11'),
-(5, 'TXNT1HS0KF02931', 1, 1, 20.00, 20.00, '2025-08-24 09:36:20'),
-(6, 'TXNT1HS0P3DF3A9', 1, 1, 20.00, 20.00, '2025-08-24 09:36:25'),
-(7, 'TXNT1K2RY6C7979', 2, 10, 15.00, 150.00, '2025-08-25 15:23:58');
+(1, 'TXNSEEDBUY1', 1, 1, '20.00', '20.00', '2025-08-22 12:47:14'),
+(2, 'TXNT1HQGL2E4229', 1, 5, '20.00', '100.00', '2025-08-24 09:02:45'),
+(3, 'TXNT1HQGZ4AB5DD', 1, 100, '20.00', '2000.00', '2025-08-24 09:02:59'),
+(4, 'TXNT1HQHBD4C4E8', 1, 5, '20.00', '100.00', '2025-08-24 09:03:11'),
+(5, 'TXNT1HS0KF02931', 1, 1, '20.00', '20.00', '2025-08-24 09:36:20'),
+(6, 'TXNT1HS0P3DF3A9', 1, 1, '20.00', '20.00', '2025-08-24 09:36:25'),
+(7, 'TXNT1L6LA68D735', 1, 10, '20.00', '200.00', '2025-08-26 05:43:58'),
+(8, 'TXNT1L6MACD64CD', 3, 1, '60.00', '60.00', '2025-08-26 05:44:34'),
+(9, 'TXNT1LI6347BD1E', 2, 10, '15.00', '150.00', '2025-08-26 09:54:03');
 
 -- --------------------------------------------------------
 
@@ -106,9 +95,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `product_name`, `price`, `stock`, `created_at`) VALUES
-(1, 'น้ำ', 20.00, 88, '2025-08-22 12:47:14'),
-(2, 'ขนม', 15.00, 110, '2025-08-22 12:47:14'),
-(3, 'ข้าวกล่อง', 60.00, 50, '2025-08-22 12:47:14');
+(1, 'น้ำ', '20.00', 78, '2025-08-22 12:47:14'),
+(2, 'ขนม', '15.00', 110, '2025-08-22 12:47:14'),
+(3, 'ข้าวกล่อง', '60.00', 49, '2025-08-22 12:47:14');
 
 -- --------------------------------------------------------
 
@@ -134,19 +123,23 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`id`, `transaction_id`, `amount`, `transaction_date`, `status`, `customer_name`, `type`, `is_paid`, `is_confirmed`, `user_id`) VALUES
-(1, 'TXNSEEDBUY1', 20.00, '2025-08-22 12:47:14', 'completed', 'ผู้ใช้ตัวอย่าง', 'buy', 1, 1, 2),
-(2, 'TXNSEEDTOP1', 50.00, '2025-08-22 12:47:14', 'completed', 'ผู้ใช้ตัวอย่าง', 'topup', 1, 1, 2),
-(3, 'TXNT1EBOA95325C', 179.00, '2025-08-22 19:50:34', 'completed', 'post', 'topup', 1, 1, 3),
-(4, 'TXNT1HQDN868C37', 500.00, '2025-08-24 16:00:59', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4),
-(5, 'TXNT1HQGL2E4229', 100.00, '2025-08-24 16:02:45', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
-(6, 'TXNT1HQGZ4AB5DD', 2000.00, '2025-08-24 16:02:59', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
-(7, 'TXNT1HQHBD4C4E8', 100.00, '2025-08-24 16:03:11', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
-(8, 'TXNT1HQKZ5416B0', 2000.00, '2025-08-24 16:05:23', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4),
-(9, 'TXNT1HS0C9F62B9', 179.00, '2025-08-24 16:36:12', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4),
-(10, 'TXNT1HS0KF02931', 20.00, '2025-08-24 16:36:20', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
-(11, 'TXNT1HS0P3DF3A9', 20.00, '2025-08-24 16:36:25', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
-(12, 'TXNT1K2ROA3E0BD', 1000.00, '2025-08-25 22:23:48', 'completed', 'post', 'topup', 1, 1, 3),
-(13, 'TXNT1K2RY6C7979', 150.00, '2025-08-25 22:23:58', 'completed', 'post', 'buy', 1, 1, 3);
+(1, 'TXNSEEDBUY1', '20.00', '2025-08-22 12:47:14', 'completed', 'ผู้ใช้ตัวอย่าง', 'buy', 1, 1, 2),
+(2, 'TXNSEEDTOP1', '50.00', '2025-08-22 12:47:14', 'completed', 'ผู้ใช้ตัวอย่าง', 'topup', 1, 1, 2),
+(3, 'TXNT1EBOA95325C', '179.00', '2025-08-22 19:50:34', 'completed', 'post', 'topup', 1, 1, 3),
+(4, 'TXNT1HQDN868C37', '500.00', '2025-08-24 16:00:59', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4),
+(5, 'TXNT1HQGL2E4229', '100.00', '2025-08-24 16:02:45', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(6, 'TXNT1HQGZ4AB5DD', '2000.00', '2025-08-24 16:02:59', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(7, 'TXNT1HQHBD4C4E8', '100.00', '2025-08-24 16:03:11', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(8, 'TXNT1HQKZ5416B0', '2000.00', '2025-08-24 16:05:23', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4),
+(9, 'TXNT1HS0C9F62B9', '179.00', '2025-08-24 16:36:12', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4),
+(10, 'TXNT1HS0KF02931', '20.00', '2025-08-24 16:36:20', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(11, 'TXNT1HS0P3DF3A9', '20.00', '2025-08-24 16:36:25', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(12, 'TXNT1L6JX061BBC', '200.00', '2025-08-25 22:43:09', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4),
+(13, 'TXNT1L6LA68D735', '200.00', '2025-08-25 22:43:58', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(14, 'TXNT1L6MACD64CD', '60.00', '2025-08-25 22:44:34', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(15, 'TXNT1LI5NAC1607', '150.00', '2025-08-26 02:53:47', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4),
+(16, 'TXNT1LI6347BD1E', '150.00', '2025-08-26 02:54:03', 'completed', 'ธนสรรค์', 'buy', 1, 1, 4),
+(17, 'TXNT1Y57D4A5643', '142.00', '2025-09-01 22:42:49', 'completed', 'ธนสรรค์', 'topup', 1, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -178,14 +171,6 @@ INSERT INTO `users` (`id`, `username`, `password`, `name`, `phone`, `email`, `ro
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `admin_impersonation_logs`
---
-ALTER TABLE `admin_impersonation_logs`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_imp_admin` (`admin_id`),
-  ADD KEY `fk_imp_target` (`target_user_id`);
 
 --
 -- Indexes for table `nfc_cards`
@@ -230,12 +215,6 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `admin_impersonation_logs`
---
-ALTER TABLE `admin_impersonation_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `nfc_cards`
 --
 ALTER TABLE `nfc_cards`
@@ -245,7 +224,7 @@ ALTER TABLE `nfc_cards`
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -257,7 +236,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -268,13 +247,6 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `admin_impersonation_logs`
---
-ALTER TABLE `admin_impersonation_logs`
-  ADD CONSTRAINT `fk_imp_admin` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_imp_target` FOREIGN KEY (`target_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `nfc_cards`
