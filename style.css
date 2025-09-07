@@ -42,6 +42,18 @@ body {
 	line-height: 1.6;
 }
 
+/* Global media handling and text wrapping */
+img, video, canvas, svg {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+p, .text, .card, .table, th, td {
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
 /* --- Layout Wrapper (Sidebar + Content) --- */
 #wrapper {
 	display: flex; /* Use flexbox for main layout */
@@ -434,5 +446,13 @@ canvas {
 	.chart-container-lg { height: 300px; }
 	.custom-table th, .custom-table td { white-space: normal; word-break: break-word; }
 	.custom-topbar .navbar-brand { display: none !important; }
+	.container-fluid.py-4 { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+}
+
+/* Very small devices */
+@media (max-width: 360px) {
+	.custom-card .card-header { padding: 0.875rem 1rem; }
+	.custom-card .card-body { padding: 0.875rem 1rem; }
+	.custom-table th, .custom-table td { padding: 0.75rem 0.875rem; }
 }
   
